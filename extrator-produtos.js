@@ -2,6 +2,7 @@ class ExtratorSimples {
     constructor() {
         // =========================================================================
         // 1. DEFINIÇÕES DE REGEX (ATUALIZADAS PARA SEU CASO)
+        // =========================================================================
        
         // Padrões de NCM - Inclui suporte a formatos com pontos variados e ESPAÇOS
         this.padroesNCM = [
