@@ -95,9 +95,16 @@ class ExtratorSimples {
 
         limpo = limpo.replace(/^\s*[-–]\s*|\s*[-–]\s*$/g, '');
         limpo = limpo.replace(/\s*[-–]?\s*NCM\s*[:.]?\s*$/i, '');
-        limpo = limpo.replace(/\s*[-–]?\s*(?:R\$?|PRE[ÇC]O|CUSTO|VALOR)\s*[:.]?\s*$/i, '');
+        
+        // 🔥 CORREÇÃO 1: Adicionado \bR\b. Isso garante que ele só apague o "R" se for uma palavra isolada,
+        // protegendo palavras que terminam com R (como HOSPITALAR, PAR, etc).
+        limpo = limpo.replace(/\s*[-–]?\s*(?:R\$|\bR\b|PRE[ÇC]O|CUSTO|VALOR)\s*[:.]?\s*$/i, '');
+        
         limpo = limpo.replace(/\s*[-–]\s*0+(?:[.,]0+)?\s*$/g, '');
-        limpo = limpo.replace(/\s*[-–]?\s*(?:R\$?|R)\s*[\d.,]+\s*$/i, '');
+        
+        // 🔥 CORREÇÃO 2: Mesma proteção de \bR\b aqui para não engolir o "R 40"
+        limpo = limpo.replace(/\s*[-–]?\s*(?:R\$|\bR\b)\s*[\d.,]+\s*$/i, '');
+        
         limpo = limpo.replace(/\s*[-–]?\s*[,.]\d{2}\s*$/i, '');
         limpo = limpo.replace(/[^\w\sÀ-ÿ/\-–\[\].,()+&]/gi, ' ').replace(/\s+/g, ' ').trim();
         limpo = limpo.replace(/\s*[-–]\s*$/g, '');

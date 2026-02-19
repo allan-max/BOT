@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>🚀 Ventura Monitor Center V3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-main: #c9d1d9;
+            --node-color: #2fcc66;
+            --py-color: #f1e05a;
+            --border: #30363d;
+            --accent: #58a6ff;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; padding: 20px; 
+            height: 100vh; box-sizing: border-box;
+            overflow: hidden; display: flex; flex-direction: column;
+        }
+        
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; padding-bottom: 15px;
+            border-bottom: 1px solid var(--border); flex-shrink: 0;
+        }
+        
+        h1 { margin: 0; font-size: 20px; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .status-badge { font-size: 11px; background: #238636; color: #fff; padding: 4px 8px; border-radius: 4px; font-weight: 600; }
+        .relogio { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: bold; }
+
+        .container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            flex: 1; min-height: 0;
+        }
+
+        .painel {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 12px; display: flex; flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3); overflow: hidden;
+        }
+        
+        .painel-header {
+            padding: 10px 15px; background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 600; font-size: 14px;
+        }
+
+        /* Estilo do Dropdown */
+        select.log-selector {
+            background: #0d1117; color: var(--text-main);
+            border: 1px solid var(--border); padding: 5px;
+            border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 12px;
+            max-width: 200px;
+        }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+        .dot-node { background-color: var(--node-color); box-shadow: 0 0 8px var(--node-color); }
+        .dot-py { background-color: var(--py-color); box-shadow: 0 0 8px var(--py-color); }
+
+        pre {
+            flex: 1; overflow-y: auto; margin: 0; padding: 15px;
+            font-family: 'JetBrains Mono', monospace; font-size: 12px;
+            line-height: 1.5; white-space: pre-wrap; word-wrap: break-word;
+            color: #8b949e;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+
+        .log-node { color: #7ee787 !important; }
+        .log-py { color: #e3b341 !important; }
+        .offline-text { color: #f85149; font-weight: bold; text-align: center; padding: 20px; }
+
+        @media (max-width: 768px) {
+            body { height: auto; overflow-y: auto; display: block; }
+            .container { display: flex; flex-direction: column; gap: 30px; }
+            .painel { height: 500px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="status-badge">ONLINE</span> MONITOR VENTURA</h1>
+        <div class="relogio" id="relogio">--:--:--</div>
+    </header>
+
+    <div class="container">
+        <div class="painel">
+            <div class="painel-header">
+                <span><span class="dot dot-node"></span>BOT WHATSAPP</span>
+                <small>Porta 3000</small>
+            </div>
+            <pre id="logNode" class="log-node">Carregando dados...</pre>
+        </div>
+
+        <div class="painel" id="cardPy">
+            <div class="painel-header">
+                <span><span class="dot dot-py"></span>DATASHEET ENGINE</span>
+                <select id="selectLogFile" class="log-selector" onchange="trocarArquivoLog()">
+                    <option value="">Carregando...</option>
+                </select>
+            </div>
+            <pre id="logPython" class="log-py">Aguardando conexão...</pre>
+        </div>
+    </div>
+
+    <script>
+        // Relógio
+        setInterval(() => document.getElementById('relogio').innerText = new Date().toLocaleTimeString('pt-BR'), 1000);
+
+        let arquivoSelecionado = null; // null = ver log atual em tempo real
+        let ultimoConteudo = "";
+
+        // 1. Carrega a lista de arquivos de log do Python
+        async function carregarListaLogs() {
+            try {
+                const host = window.location.hostname;
+                const res = await fetch(`http://${host}:6004/logs/list`);
+                const data = await res.json();
+                
+                const select = document.getElementById('selectLogFile');
+                const valorAtual = select.value; // Tenta manter seleção se não for a primeira vez
+
+                select.innerHTML = ''; // Limpa tudo
+                
+                // Opção padrão: "Sessão Atual"
+                const optionAtual = document.createElement('option');
+                optionAtual.value = "";
+                optionAtual.text = `🟢 SESSÃO ATUAL (${data.atual})`;
+                select.appendChild(optionAtual);
+
+                // Opções de arquivos antigos
+                data.arquivos.forEach(arq => {
+                    if (arq !== data.atual) {
+                        const opt = document.createElement('option');
+                        opt.value = arq;
+                        // Formata nome para ficar legível (log_2026-02-11_15-00 -> 11/02 15:00)
+                        let nomeBonito = arq.replace('log_', '').replace('.txt', '').replace('_', ' ');
+                        opt.text = `📜 ${nomeBonito}`;
+                        select.appendChild(opt);
+                    }
+                });
+
+                if (valorAtual) select.value = valorAtual;
+
+            } catch (e) {
+                console.log("Erro ao listar logs: " + e);
+            }
+        }
+
+        function trocarArquivoLog() {
+            const select = document.getElementById('selectLogFile');
+            arquivoSelecionado = select.value;
+            ultimoConteudo = ""; // Força refresh visual
+            document.getElementById('logPython').innerText = "Carregando...";
+            fetchLogs(); // Atualiza imediatamente
+        }
+
+        function fetchLogs() {
+            // -- LOG NODE (Local) --
+            fetch('/logs').then(r => r.text()).then(txt => {
+                const el = document.getElementById('logNode');
+                if (txt.length > el.innerText.length) {
+                    const isBottom = el.scrollHeight - el.clientHeight <= el.scrollTop + 50;
+                    el.innerText = txt;
+                    if(isBottom) el.scrollTop = el.scrollHeight;
+                }
+            });
+
+            // -- LOG PYTHON (Remoto) --
+            const logPy = document.getElementById('logPython');
+            const host = window.location.hostname;
+            let url = `http://${host}:6004/logs`;
+            
+            // Se escolheu um arquivo antigo, adiciona na URL
+            if (arquivoSelecionado) {
+                url += `?file=${arquivoSelecionado}`;
+            }
+
+            fetch(url)
+            .then(r => r.text())
+            .then(txt => {
+                // Remove mensagens de erro se voltou
+                logPy.classList.remove('offline-text');
+                logPy.classList.add('log-py');
+
+                // Só atualiza se mudou algo
+                if (txt !== ultimoConteudo) {
+                    ultimoConteudo = txt;
+                    logPy.innerText = txt;
+                    
+                    // Auto-scroll (só se estiver vendo o ATUAL ou se acabou de carregar)
+                    const isBottom = logPy.scrollHeight - logPy.clientHeight <= logPy.scrollTop + 50;
+                    if (!arquivoSelecionado && isBottom) logPy.scrollTop = logPy.scrollHeight;
+                }
+            })
+            .catch(e => {
+                logPy.innerText = "⚠️ SERVIDOR DATASHEET OFFLINE";
+                logPy.classList.add('offline-text');
+            });
+        }
+
+        // Inicia
+        carregarListaLogs();
+        fetchLogs();
+        
+        // Loop de atualização
+        setInterval(fetchLogs, 2000);      // Logs a cada 2s
+        setInterval(carregarListaLogs, 10000); // Lista de arquivos a cada 10s (para ver se surgiu novo)
+    </script>
+</body>
+</html>
