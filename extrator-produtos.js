@@ -3,7 +3,7 @@ class ExtratorSimples {
         // =========================================================================
         // 1. DEFINIÇÕES DE REGEX (ATUALIZADAS PARA SEU CASO)
         // =========================================================================
-        
+        //teste de comit
         // Padrões de NCM - Inclui suporte a formatos com pontos variados e ESPAÇOS
         this.padroesNCM = [
             // Captura genérica após "NCM:" para tratar espaços depois (ex: NCM: 90.31. 8099)
