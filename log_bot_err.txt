@@ -1,0 +1,7 @@
+❌ Erro ao ler dados do grupo: TypeError: this.extrairApenasPreco is not a function
+    at ExtratorSimples.analisarMensagem (C:\Users\Administrator\Desktop\bot\extrator-produtos.js:420:34)
+    at processarProdutos (C:\Users\Administrator\Desktop\bot\app.js:476:28)
+    at EventEmitter.<anonymous> (C:\Users\Administrator\Desktop\bot\app.js:357:27)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+❌ [ERRO] Falha ao enviar para API: Request failed with status code 500

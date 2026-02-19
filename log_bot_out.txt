@@ -1,0 +1,443 @@
+[32minfo[39m:     Checking for updates
+🚀 Webhook na porta 3000
+[32minfo[39m:     You're up to date
+[32minfo[39m:     [bot-servidor:browser] Using browser folder 'C:\Users\Administrator\Desktop\bot\tokens\bot-servidor'
+[32minfo[39m:     [bot-servidor:browser] Initializing browser...
+[32mhttp[39m:     [bot-servidor:browser] checking headless...
+[32mhttp[39m:     [bot-servidor:browser] headless option is active, browser hidden
+[32minfo[39m:     [bot-servidor:client] Initializing...
+[36mverbose[39m:  [bot-servidor:client] Setting WhatsApp WEB version to 2.3000.10305x
+[31merror[39m:    [bot-servidor:client] Version not available for 2.3000.10305x, using latest as fallback
+[36mverbose[39m:  [bot-servidor:client] Loading WhatsApp WEB
+[36mverbose[39m:  [bot-servidor:page] Page loaded
+[36mverbose[39m:  [bot-servidor:client] Injecting wapi.js
+[36mverbose[39m:  [bot-servidor:client] WhatsApp WEB loaded
+[32mhttp[39m:     [bot-servidor:client] Waiting page load
+[36mverbose[39m:  [bot-servidor:client] wapi.js injected
+[34mdebug[39m:    [bot-servidor:client] Exposing onMessage function
+[32minfo[39m:     [bot-servidor:client] WhatsApp WEB version: 2.3000.1033279839
+[32minfo[39m:     [bot-servidor:client] WA-JS version: 3.20.1
+[34mdebug[39m:    [bot-servidor:client] Exposing onAnyMessage function
+[34mdebug[39m:    [bot-servidor:client] Exposing onAck function
+[32mhttp[39m:     [bot-servidor:client] Checking is logged...
+[32minfo[39m:     [bot-servidor:client] Auto close configured to 60s
+[32mhttp[39m:     [bot-servidor:client] Authenticated
+[34mdebug[39m:    [bot-servidor:client] Exposing onMessageEdit function
+[34mdebug[39m:    [bot-servidor:client] Exposing onNotificationMessage function
+[34mdebug[39m:    [bot-servidor:client] Exposing onParticipantsChanged function
+[34mdebug[39m:    [bot-servidor:client] Exposing onStateChange function
+[34mdebug[39m:    [bot-servidor:client] Exposing onStreamChange function
+[34mdebug[39m:    [bot-servidor:client] Exposing onIncomingCall function
+[34mdebug[39m:    [bot-servidor:client] Exposing onInterfaceChange function
+[34mdebug[39m:    [bot-servidor:client] Exposing onPresenceChanged function
+[34mdebug[39m:    [bot-servidor:client] Exposing onLiveLocation function
+[32minfo[39m:     [bot-servidor:client] Auto close configured to 180s
+[32mhttp[39m:     [bot-servidor:client] Checking phone is connected...
+[34mdebug[39m:    [bot-servidor:client] Exposing onAddedToGroup function
+[34mdebug[39m:    [bot-servidor:client] Exposing onRevokedMessage function
+[34mdebug[39m:    [bot-servidor:client] Exposing onReactionMessage function
+[34mdebug[39m:    [bot-servidor:client] Exposing onPollResponse function
+[34mdebug[39m:    [bot-servidor:client] Exposing onUpdateLabel function
+[34mdebug[39m:    [bot-servidor:client] Exposing onOrderStatusUpdate function
+[34mdebug[39m:    [bot-servidor:client] Emitting onInterfaceChange event (1 registered)
+[32mhttp[39m:     [bot-servidor:client] Current state: SYNCING (CONNECTING)
+[34mdebug[39m:    [bot-servidor:client] Emitting onInterfaceChange event (1 registered)
+[32mhttp[39m:     [bot-servidor:client] Current state: MAIN (NORMAL)
+[34mdebug[39m:    [bot-servidor:client] Emitting onInterfaceChange event (1 registered)
+[32mhttp[39m:     [bot-servidor:client] Current state: MAIN (NORMAL)
+[34mdebug[39m:    [bot-servidor:client] Emitting onInterfaceChange event (1 registered)
+[32mhttp[39m:     [bot-servidor:client] Current state: MAIN (NORMAL)
+[34mdebug[39m:    [bot-servidor:client] Registering onStateChange event
+🤖 BOT ONLINE - MODO DEBUG TOTAL (SEM FILTROS)
+[34mdebug[39m:    [bot-servidor:client] Registering onMessage event
+[36mverbose[39m:  [bot-servidor:page] Page loaded
+[36mverbose[39m:  [bot-servidor:client] Injecting wapi.js
+[36mverbose[39m:  [bot-servidor:client] wapi.js injected
+[32minfo[39m:     [bot-servidor:client] WhatsApp WEB version: 2.3000.1033279839
+[32minfo[39m:     [bot-servidor:client] WA-JS version: 3.20.1
+[34mdebug[39m:    [bot-servidor:client] Emitting onStateChange event (1 registered)
+[34mdebug[39m:    [bot-servidor:client] Emitting onInterfaceChange event (1 registered)
+[32mhttp[39m:     [bot-servidor:client] Current state: MAIN (NORMAL)
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 201867908907087@lid
+   Grupo: NÃO
+   Texto: "cadaallan"
+===========================================================
+👤 Mensagem no Privado
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 201867908907087@lid
+   Grupo: SIM (120363403014704797@g.us)
+   Texto: "RASPBERRY Pi zero 2w
+1225,00
+84733049"
+===========================================================
+🔍 [ANALISANDO GRUPO]
+   Nome lido do WhatsApp: "CADASTRO VENTURA"
+   Nome usado na comparação: "CADASTRO VENTURA"
+   Deve conter: "CADASTRO VENTURA" ou "DATASHEET VENTURA"
+   ✅ GRUPO CADASTRO DETECTADO! Analisando conteúdo...
+   -> Tentando processar como Produto...
+🧠🧠🧠 INÍCIO ANÁLISE - Texto recebido:
+RASPBERRY Pi zero 2w
+1225,00
+84733049
+🧠 Total de linhas úteis: 3
+🔍 PRIORIDADE: Detectado bloco exato de 3 linhas. Tentando extração direta...
+✅ Sucesso na extração direta de 3 linhas!
+📤 [GATEWAY] Enviando Payload (PRODUTO): {
+  "codigoTarefa": "prod_1770817466014_8w4o",
+  "tipoTarefa": "PRODUTO",
+  "dados": {
+    "ncm": "84733049",
+    "custo": 1225,
+    "descricao": "RASPBERRY Pi zero 2w",
+    "webhook_url": "http://localhost:3000/api/datasheet/webhook"
+  }
+}
+✅ [GATEWAY] Status: 200
+📦 [DADOS INTERNOS] {
+  "sucesso": true,
+  "codigoTarefa": "prod_1770817466014_8w4o",
+  "tipoTarefa": "PRODUTO",
+  "servicoDestino": "http://localhost:6001/api/produtos/cadastrar",
+  "gatewayProcessado": true,
+  "dataProcessamento": "2026-02-11T13:45:13.2390939Z",
+  "respostaServico": "{\"sucesso\":true,\"codigoTarefa\":\"prod_1770817466014_8w4o\",\"codigoProduto\":\"70703\",\"mensagem\":\"Produto cadastrado com sucesso\",\"dataProcessamento\":\"2026-02-11T13:45:13.2376389Z\",\"gatewayProcessado\":true,\"gatewayTimestamp\":\"2026-02-11T13:45:13.2376392Z\",\"origem\":\"ServidorProdutos:6001\"}"
+}
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 143039708282904@lid
+   Grupo: SIM (120363403014704797@g.us)
+   Texto: "PROCESSADOR INTEL CORE I9-14900K RAPTOR LAKE (UP TO 6.0 GHZ) 36MB - BX8071514900K - SEM COOLER
+3521,00
+85094050"
+===========================================================
+🔍 [ANALISANDO GRUPO]
+   Nome lido do WhatsApp: "CADASTRO VENTURA"
+   Nome usado na comparação: "CADASTRO VENTURA"
+   Deve conter: "CADASTRO VENTURA" ou "DATASHEET VENTURA"
+   ✅ GRUPO CADASTRO DETECTADO! Analisando conteúdo...
+   -> Tentando processar como Produto...
+🧠🧠🧠 INÍCIO ANÁLISE - Texto recebido:
+PROCESSADOR INTEL CORE I9-14900K RAPTOR LAKE (UP TO 6.0 GHZ) 36MB - BX8071514900K - SEM COOLER
+3521,00
+85094050
+🧠 Total de linhas úteis: 3
+🔍 PRIORIDADE: Detectado bloco exato de 3 linhas. Tentando extração direta...
+✅ Sucesso na extração direta de 3 linhas!
+📤 [GATEWAY] Enviando Payload (PRODUTO): {
+  "codigoTarefa": "prod_1770817695850_gqpp",
+  "tipoTarefa": "PRODUTO",
+  "dados": {
+    "ncm": "85094050",
+    "custo": 3521,
+    "descricao": "PROCESSADOR INTEL CORE I9-14900K RAPTOR LAKE (UP TO 6.0 GHZ) 36MB - BX8071514900K - SEM COOLE",
+    "webhook_url": "http://localhost:3000/api/datasheet/webhook"
+  }
+}
+✅ [GATEWAY] Status: 200
+📦 [DADOS INTERNOS] {
+  "sucesso": true,
+  "codigoTarefa": "prod_1770817695850_gqpp",
+  "tipoTarefa": "PRODUTO",
+  "servicoDestino": "http://localhost:6001/api/produtos/cadastrar",
+  "gatewayProcessado": true,
+  "dataProcessamento": "2026-02-11T13:48:59.5467086Z",
+  "respostaServico": "{\"sucesso\":true,\"codigoTarefa\":\"prod_1770817695850_gqpp\",\"codigoProduto\":\"70704\",\"mensagem\":\"Produto cadastrado com sucesso\",\"dataProcessamento\":\"2026-02-11T13:48:59.545301Z\",\"gatewayProcessado\":true,\"gatewayTimestamp\":\"2026-02-11T13:48:59.5453013Z\",\"origem\":\"ServidorProdutos:6001\"}"
+}
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 182605332906055@lid
+   Grupo: NÃO
+   Texto: "Bom dia,"
+===========================================================
+👤 Mensagem no Privado
+   ⛔ Usuário não logado. Ignorando.
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 182605332906055@lid
+   Grupo: NÃO
+   Texto: "Essa coleta é aí com vcs?"
+===========================================================
+👤 Mensagem no Privado
+   ⛔ Usuário não logado. Ignorando.
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 143039708282904@lid
+   Grupo: SIM (120363403014704797@g.us)
+   Texto: "PLACA MAE GIGABYTE B760M D3HP WIFI6 1.0 DDR5 LGA1700 12 13 E 14 G
+849,00
+84733041"
+===========================================================
+🔍 [ANALISANDO GRUPO]
+   Nome lido do WhatsApp: "CADASTRO VENTURA"
+   Nome usado na comparação: "CADASTRO VENTURA"
+   Deve conter: "CADASTRO VENTURA" ou "DATASHEET VENTURA"
+   ✅ GRUPO CADASTRO DETECTADO! Analisando conteúdo...
+   -> Tentando processar como Produto...
+🧠🧠🧠 INÍCIO ANÁLISE - Texto recebido:
+PLACA MAE GIGABYTE B760M D3HP WIFI6 1.0 DDR5 LGA1700 12 13 E 14 G
+849,00
+84733041
+🧠 Total de linhas úteis: 3
+🔍 PRIORIDADE: Detectado bloco exato de 3 linhas. Tentando extração direta...
+✅ Sucesso na extração direta de 3 linhas!
+📤 [GATEWAY] Enviando Payload (PRODUTO): {
+  "codigoTarefa": "prod_1770817814816_qucd",
+  "tipoTarefa": "PRODUTO",
+  "dados": {
+    "ncm": "84733041",
+    "custo": 849,
+    "descricao": "PLACA MAE GIGABYTE B760M D3HP WIFI6 1.0 DDR5 LGA1700 12 13 E 14 G",
+    "webhook_url": "http://localhost:3000/api/datasheet/webhook"
+  }
+}
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 182605332906055@lid
+   Grupo: NÃO
+   Texto: "Consegue preparar aí pra mim? To indo aí agora"
+===========================================================
+👤 Mensagem no Privado
+   ⛔ Usuário não logado. Ignorando.
+✅ [GATEWAY] Status: 200
+📦 [DADOS INTERNOS] {
+  "sucesso": true,
+  "codigoTarefa": "prod_1770817814816_qucd",
+  "tipoTarefa": "PRODUTO",
+  "servicoDestino": "http://localhost:6001/api/produtos/cadastrar",
+  "gatewayProcessado": true,
+  "dataProcessamento": "2026-02-11T13:51:04.9776004Z",
+  "respostaServico": "{\"sucesso\":true,\"codigoTarefa\":\"prod_1770817814816_qucd\",\"codigoProduto\":\"70705\",\"mensagem\":\"Produto cadastrado com sucesso\",\"dataProcessamento\":\"2026-02-11T13:51:04.9762471Z\",\"gatewayProcessado\":true,\"gatewayTimestamp\":\"2026-02-11T13:51:04.9762474Z\",\"origem\":\"ServidorProdutos:6001\"}"
+}
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 143039708282904@lid
+   Grupo: SIM (120363403014704797@g.us)
+   Texto: "FONTE DE ALIMENTACAO GAMEMAX 1050W 80 PLUS PLATINUM FULL MODULAR - GX1050 
+796,00
+85044021"
+===========================================================
+🔍 [ANALISANDO GRUPO]
+   Nome lido do WhatsApp: "CADASTRO VENTURA"
+   Nome usado na comparação: "CADASTRO VENTURA"
+   Deve conter: "CADASTRO VENTURA" ou "DATASHEET VENTURA"
+   ✅ GRUPO CADASTRO DETECTADO! Analisando conteúdo...
+   -> Tentando processar como Produto...
+🧠🧠🧠 INÍCIO ANÁLISE - Texto recebido:
+FONTE DE ALIMENTACAO GAMEMAX 1050W 80 PLUS PLATINUM FULL MODULAR - GX1050 
+796,00
+85044021
+🧠 Total de linhas úteis: 3
+🔍 PRIORIDADE: Detectado bloco exato de 3 linhas. Tentando extração direta...
+✅ Sucesso na extração direta de 3 linhas!
+📤 [GATEWAY] Enviando Payload (PRODUTO): {
+  "codigoTarefa": "prod_1770817882081_nx8l",
+  "tipoTarefa": "PRODUTO",
+  "dados": {
+    "ncm": "85044021",
+    "custo": 796,
+    "descricao": "FONTE DE ALIMENTACAO GAMEMAX 1050W 80 PLUS PLATINUM FULL MODULAR - GX1050",
+    "webhook_url": "http://localhost:3000/api/datasheet/webhook"
+  }
+}
+✅ [GATEWAY] Status: 200
+📦 [DADOS INTERNOS] {
+  "sucesso": true,
+  "codigoTarefa": "prod_1770817882081_nx8l",
+  "tipoTarefa": "PRODUTO",
+  "servicoDestino": "http://localhost:6001/api/produtos/cadastrar",
+  "gatewayProcessado": true,
+  "dataProcessamento": "2026-02-11T13:52:06.6190612Z",
+  "respostaServico": "{\"sucesso\":true,\"codigoTarefa\":\"prod_1770817882081_nx8l\",\"codigoProduto\":\"70706\",\"mensagem\":\"Produto cadastrado com sucesso\",\"dataProcessamento\":\"2026-02-11T13:52:06.6176607Z\",\"gatewayProcessado\":true,\"gatewayTimestamp\":\"2026-02-11T13:52:06.617661Z\",\"origem\":\"ServidorProdutos:6001\"}"
+}
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 143039708282904@lid
+   Grupo: SIM (120363403014704797@g.us)
+   Texto: "Cooler Para Processador Nótus St17 Lga 1700 - Tdp 65W - St1765W
+39,90
+ 84145990"
+===========================================================
+🔍 [ANALISANDO GRUPO]
+   Nome lido do WhatsApp: "CADASTRO VENTURA"
+   Nome usado na comparação: "CADASTRO VENTURA"
+   Deve conter: "CADASTRO VENTURA" ou "DATASHEET VENTURA"
+   ✅ GRUPO CADASTRO DETECTADO! Analisando conteúdo...
+   -> Tentando processar como Produto...
+🧠🧠🧠 INÍCIO ANÁLISE - Texto recebido:
+Cooler Para Processador Nótus St17 Lga 1700 - Tdp 65W - St1765W
+39,90
+ 84145990
+🧠 Total de linhas úteis: 3
+🔍 PRIORIDADE: Detectado bloco exato de 3 linhas. Tentando extração direta...
+✅ Sucesso na extração direta de 3 linhas!
+📤 [GATEWAY] Enviando Payload (PRODUTO): {
+  "codigoTarefa": "prod_1770818109090_46nz",
+  "tipoTarefa": "PRODUTO",
+  "dados": {
+    "ncm": "84145990",
+    "custo": 39.9,
+    "descricao": "Cooler Para Processador Nótus St17 Lga 1700 - Tdp 65W - St1765W",
+    "webhook_url": "http://localhost:3000/api/datasheet/webhook"
+  }
+}
+✅ [GATEWAY] Status: 200
+📦 [DADOS INTERNOS] {
+  "sucesso": true,
+  "codigoTarefa": "prod_1770818109090_46nz",
+  "tipoTarefa": "PRODUTO",
+  "servicoDestino": "http://localhost:6001/api/produtos/cadastrar",
+  "gatewayProcessado": true,
+  "dataProcessamento": "2026-02-11T13:55:53.7989166Z",
+  "respostaServico": "{\"sucesso\":true,\"codigoTarefa\":\"prod_1770818109090_46nz\",\"codigoProduto\":\"70707\",\"mensagem\":\"Produto cadastrado com sucesso\",\"dataProcessamento\":\"2026-02-11T13:55:53.7975298Z\",\"gatewayProcessado\":true,\"gatewayTimestamp\":\"2026-02-11T13:55:53.7975301Z\",\"origem\":\"ServidorProdutos:6001\"}"
+}
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 143039708282904@lid
+   Grupo: SIM (120363403014704797@g.us)
+   Texto: "GABINETE GAMER GAMEMAX SIEGE TOWER ATX BRANCO - X614100901688
+198,00
+84733019"
+===========================================================
+🔍 [ANALISANDO GRUPO]
+   Nome lido do WhatsApp: "CADASTRO VENTURA"
+   Nome usado na comparação: "CADASTRO VENTURA"
+   Deve conter: "CADASTRO VENTURA" ou "DATASHEET VENTURA"
+   ✅ GRUPO CADASTRO DETECTADO! Analisando conteúdo...
+   -> Tentando processar como Produto...
+🧠🧠🧠 INÍCIO ANÁLISE - Texto recebido:
+GABINETE GAMER GAMEMAX SIEGE TOWER ATX BRANCO - X614100901688
+198,00
+84733019
+🧠 Total de linhas úteis: 3
+🔍 PRIORIDADE: Detectado bloco exato de 3 linhas. Tentando extração direta...
+✅ Sucesso na extração direta de 3 linhas!
+📤 [GATEWAY] Enviando Payload (PRODUTO): {
+  "codigoTarefa": "prod_1770818258967_bfmm",
+  "tipoTarefa": "PRODUTO",
+  "dados": {
+    "ncm": "84733019",
+    "custo": 198,
+    "descricao": "GABINETE GAMER GAMEMAX SIEGE TOWER ATX BRANCO - X614100901688",
+    "webhook_url": "http://localhost:3000/api/datasheet/webhook"
+  }
+}
+✅ [GATEWAY] Status: 200
+📦 [DADOS INTERNOS] {
+  "sucesso": true,
+  "codigoTarefa": "prod_1770818258967_bfmm",
+  "tipoTarefa": "PRODUTO",
+  "servicoDestino": "http://localhost:6001/api/produtos/cadastrar",
+  "gatewayProcessado": true,
+  "dataProcessamento": "2026-02-11T13:58:25.3388245Z",
+  "respostaServico": "{\"sucesso\":true,\"codigoTarefa\":\"prod_1770818258967_bfmm\",\"codigoProduto\":\"70708\",\"mensagem\":\"Produto cadastrado com sucesso\",\"dataProcessamento\":\"2026-02-11T13:58:25.3374457Z\",\"gatewayProcessado\":true,\"gatewayTimestamp\":\"2026-02-11T13:58:25.337446Z\",\"origem\":\"ServidorProdutos:6001\"}"
+}
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 143039708282904@lid
+   Grupo: SIM (120363403014704797@g.us)
+   Texto: "Memoria Kingston Fury Beast, RGB, 32GB (1x32GB), DDR5, 5600MHz, C40, Branco, KF556C40BWA-32
+2899,00"
+===========================================================
+🔍 [ANALISANDO GRUPO]
+   Nome lido do WhatsApp: "CADASTRO VENTURA"
+   Nome usado na comparação: "CADASTRO VENTURA"
+   Deve conter: "CADASTRO VENTURA" ou "DATASHEET VENTURA"
+   ✅ GRUPO CADASTRO DETECTADO! Analisando conteúdo...
+   -> Tentando processar como Produto...
+🧠🧠🧠 INÍCIO ANÁLISE - Texto recebido:
+Memoria Kingston Fury Beast, RGB, 32GB (1x32GB), DDR5, 5600MHz, C40, Branco, KF556C40BWA-32
+2899,00
+🧠 Total de linhas úteis: 2
+🔍 Processando formato CUSTO NCM...
+🔍 Processando formato DESC NCM PREÇO (sem traços)...
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 143039708282904@lid
+   Grupo: SIM (120363403014704797@g.us)
+   Texto: "Memoria Kingston Fury Beast, RGB, 32GB (1x32GB), DDR5, 5600MHz, C40, Branco, KF556C40BWA-32
+2899,00
+84145990"
+===========================================================
+🔍 [ANALISANDO GRUPO]
+   Nome lido do WhatsApp: "CADASTRO VENTURA"
+   Nome usado na comparação: "CADASTRO VENTURA"
+   Deve conter: "CADASTRO VENTURA" ou "DATASHEET VENTURA"
+   ✅ GRUPO CADASTRO DETECTADO! Analisando conteúdo...
+   -> Tentando processar como Produto...
+🧠🧠🧠 INÍCIO ANÁLISE - Texto recebido:
+Memoria Kingston Fury Beast, RGB, 32GB (1x32GB), DDR5, 5600MHz, C40, Branco, KF556C40BWA-32
+2899,00
+84145990
+🧠 Total de linhas úteis: 3
+🔍 PRIORIDADE: Detectado bloco exato de 3 linhas. Tentando extração direta...
+✅ Sucesso na extração direta de 3 linhas!
+📤 [GATEWAY] Enviando Payload (PRODUTO): {
+  "codigoTarefa": "prod_1770818426761_54cp",
+  "tipoTarefa": "PRODUTO",
+  "dados": {
+    "ncm": "84145990",
+    "custo": 2899,
+    "descricao": "Memoria Kingston Fury Beast, RGB, 32GB (1x32GB), DDR5, 5600MHz, C40, Branco, KF556C40BWA-32",
+    "webhook_url": "http://localhost:3000/api/datasheet/webhook"
+  }
+}
+✅ [GATEWAY] Status: 200
+📦 [DADOS INTERNOS] {
+  "sucesso": true,
+  "codigoTarefa": "prod_1770818426761_54cp",
+  "tipoTarefa": "PRODUTO",
+  "servicoDestino": "http://localhost:6001/api/produtos/cadastrar",
+  "gatewayProcessado": true,
+  "dataProcessamento": "2026-02-11T14:01:12.7993417Z",
+  "respostaServico": "{\"sucesso\":true,\"codigoTarefa\":\"prod_1770818426761_54cp\",\"codigoProduto\":\"70709\",\"mensagem\":\"Produto cadastrado com sucesso\",\"dataProcessamento\":\"2026-02-11T14:01:12.798869Z\",\"gatewayProcessado\":true,\"gatewayTimestamp\":\"2026-02-11T14:01:12.7988693Z\",\"origem\":\"ServidorProdutos:6001\"}"
+}
+[34mdebug[39m:    [bot-servidor:client] Emitting onMessage event (1 registered)
+===========================================================
+📩 MENSAGEM RECEBIDA!
+   Tipo: chat
+   De: 217853827543287@lid
+   Grupo: SIM (120363403361105009@g.us)
+   Texto: "https://www.pauta.com.br/projetor-epson-powerlite-e24"
+===========================================================
+🔍 [ANALISANDO GRUPO]
+   Nome lido do WhatsApp: "DATASHEET VENTURA"
+   Nome usado na comparação: "DATASHEET VENTURA"
+   Deve conter: "CADASTRO VENTURA" ou "DATASHEET VENTURA"
+   ✅ GRUPO DATASHEET DETECTADO! Processando...
+📤 [GATEWAY] Enviando Payload (DATASHEET): {
+  "codigoTarefa": "ds_1770819575624_s04p",
+  "tipoTarefa": "DATASHEET",
+  "dados": {
+    "url": "https://www.pauta.com.br/projetor-epson-powerlite-e24",
+    "webhook_url": "http://localhost:3000/api/datasheet/webhook"
+  }
+}

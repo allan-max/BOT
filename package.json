@@ -1,0 +1,21 @@
+{
+  "name": "bot-whatsapp-api",
+  "version": "3.0.0",
+  "description": "Bot WhatsApp para produtos, fornecedores e datasheet via API externa",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "node teste-webhook.js"
+  },
+  "dependencies": {
+    "@wppconnect-team/wppconnect": "^1.27.1",
+    "axios": "^1.13.4",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

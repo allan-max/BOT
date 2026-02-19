@@ -1,0 +1,20 @@
+caso erro assim: error:    [bot-servidor:browser] Error no open browser
+
+error:    [bot-servidor:browser] The browser is already running for C:\Users\USER\Desktop\bot\tokens\bot-servidor. Use a different `userDataDir` or stop the running browser first.
+
+❌ Erro ao iniciar bot: Error: The browser is already running for C:\Users\USER\Desktop\bot\tokens\bot-servidor. Use a different `userDataDir` or stop the running browser first.
+
+    at ChromeLauncher.launch (C:\Users\USER\Desktop\bot\node_modules\puppeteer-core\lib\cjs\puppeteer\node\BrowserLauncher.js:174:23)
+
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+    at async PuppeteerExtra.launch (C:\Users\USER\Desktop\bot\node_modules\puppeteer-extra\dist\index.cjs.js:128:25) 
+
+use: 
+
+taskkill /F /IM chrome.exe /T 
+
+e
+
+taskkill /F /IM chromium.exe /T 
+no cmd
