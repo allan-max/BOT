@@ -6,7 +6,6 @@ const axios = require('axios');
 const http = require('http');
 const https = require('https');
 
-// ======================================================================
 // CONFIGURAÇÃO
 // ======================================================================
 const PORTA_SERVIDOR = 3000;
@@ -41,6 +40,7 @@ class ExtratorDatasheet {
             'DUTRA': { padroes: [/dutramaquinas\.com\.br/] },
             'ROUTE66': { padroes: [/route66\.com\.br/] },
             'KABUM' : { padroes: [/kabum\.com\.br/]},
+            'ATACADOSP': { padroes: [/atacadosaopaulo\.com\.br/,/ atacadosaopaulo\.com/ ]},
             'MARTINS': { padroes: [/martinsatacado\.com\.br/] },
             'LOJADOMECANICO': { padroes: [/lojadomecanico\.com\.br/] },
             'MAGALU': { padroes: [/magazineluiza\.com\.br/, /magalu\.com/] },
