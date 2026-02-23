@@ -37,6 +37,7 @@ class ExtratorDatasheet {
             'agis': { padroes: [/vendas.agis\.com\.br/, /agis\.com\.br/] },
             'vonder': { padroes: [/vonder\.com\.br/] },
             'MAZER': { padroes: [/mazer\.com\.br/] },
+            'SAMSUNG': { padroes: [/samsung\.com/] },
             'DUTRA': { padroes: [/dutramaquinas\.com\.br/] },
             'ROUTE66': { padroes: [/route66\.com\.br/] },
             'KABUM' : { padroes: [/kabum\.com\.br/]},
