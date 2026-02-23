@@ -38,7 +38,7 @@ class ExtratorDatasheet {
             'vonder': { padroes: [/vonder\.com\.br/] },
             'MAZER': { padroes: [/mazer\.com\.br/] },
             'SAMSUNG': { padroes: [/samsung\.com/] },
-            'compragolden': { padroes: [/compragolden\.com\.br/] },
+            'compragolden': { padroes: [/compragolden\.com\.br/,/compragolden\.com/ ] },
             'DUTRA': { padroes: [/dutramaquinas\.com\.br/] },
             'ROUTE66': { padroes: [/route66\.com\.br/] },
             'KABUM' : { padroes: [/kabum\.com\.br/]},
