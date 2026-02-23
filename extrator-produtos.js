@@ -489,6 +489,10 @@ class ExtratorSimples {
         }
         return null;
     }
+    extrairApenasPreco(texto) {
+        const preco = this.extrairPreco(texto);
+        return preco > 0 ? preco : null;
+    }
 
 analisarMensagem(texto, contextoAnterior = null) {
         console.log(`🧠 ANÁLISE INICIADA`);
