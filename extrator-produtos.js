@@ -524,17 +524,34 @@ analisarMensagem(texto, contextoAnterior = null) {
              }
         }
 
+       // =================================================================================
+        // 🏆 PRIORIDADE 2: BLOCOS DE 3 LINHAS (ÚNICO OU MÚLTIPLOS)
         // =================================================================================
-        // 🏆 PRIORIDADE 2: BLOCO EXATO DE 3 LINHAS (O CASO DO SWITCH)
-        // =================================================================================
-        // Subimos essa verificação! Se tem exatamente 3 linhas, tenta montar o quebra-cabeça
-        // (Desc, Preço, NCM) antes de tentar lógica de "NCM compartilhado"
-        if (linhasProcessadas.length === 3) {
-            console.log(`🔍 Tentando encaixar bloco exato de 3 linhas...`);
-            const produto3Linhas = this.extrairProdutoDe3Linhas(linhasProcessadas);
-            if (produto3Linhas) {
-                console.log(`✅ Sucesso na extração direta de 3 linhas!`);
-                return finalizar([produto3Linhas]);
+        // Se a mensagem tiver 3 ou mais linhas, tentamos varrer de 3 em 3
+        if (linhasProcessadas.length >= 3) {
+            console.log(`🔍 Tentando encaixar blocos de 3 linhas...`);
+            const produtos3Linhas = [];
+            let i = 0;
+            
+            while (i <= linhasProcessadas.length - 3) {
+                // Pega um pedaço de 3 linhas
+                const chunk = linhasProcessadas.slice(i, i + 3);
+                const produto = this.extrairProdutoDe3Linhas(chunk);
+                
+                if (produto) {
+                    // Encaixou perfeitamente! Guarda o produto e pula 3 linhas pra frente
+                    produtos3Linhas.push(produto);
+                    i += 3; 
+                } else {
+                    // Não encaixou, avança só 1 linha pra tentar a próxima combinação (ignora "ruídos" no texto)
+                    i++; 
+                }
+            }
+            
+            // Se achou produtos e eles formam a maior parte da mensagem (para evitar falsos positivos)
+            if (produtos3Linhas.length > 0 && (produtos3Linhas.length * 3) >= (linhasProcessadas.length * 0.5)) {
+                console.log(`✅ Sucesso na extração de ${produtos3Linhas.length} produtos formatados em 3 linhas!`);
+                return finalizar(produtos3Linhas);
             }
         }
 
