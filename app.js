@@ -9,51 +9,58 @@ const fs = require('fs');
 const util = require('util');
 const path = require('path');
 
+// ======================================================================
+// SISTEMA DE LOGS DEFINITIVO (CAPTURA 100% DO CMD)
+// ======================================================================
 const PASTA_DO_LOG = '\\\\SERVIDOR2\\Publico\\ALLAN\\Logs'; 
 const arquivoLog = path.join(PASTA_DO_LOG, 'log_zapzap.txt');
 
-const logNativo = console.log;
-const errorNativo = console.error;
-
-// 1. Tenta criar a pasta, mas avisa se der erro de rede/permissão
 try {
     if (!fs.existsSync(PASTA_DO_LOG)) {
         fs.mkdirSync(PASTA_DO_LOG, { recursive: true });
-        logNativo(`[LOG SYSTEM] Pasta de log criada com sucesso em: ${PASTA_DO_LOG}`);
     }
-} catch (erroPasta) {
-    errorNativo(`[ERRO CRÍTICO] Não foi possível acessar ou criar a pasta no SERVIDOR2: ${erroPasta.message}`);
+} catch (e) {
+    // Se der erro, cai no fluxo normal do terminal
 }
 
-// 2. Prepara o arquivo
 const streamDeLog = fs.createWriteStream(arquivoLog, { flags: 'a' });
 
-// 3. SE DER ERRO AO SALVAR, MOSTRA NA TELA!
-streamDeLog.on('error', (erroStream) => {
-    errorNativo(`[ERRO CRÍTICO] Falha ao escrever no arquivo de log da rede: ${erroStream.message}`);
-});
+// Bibliotecas como o WPPConnect usam textos coloridos no CMD. 
+// Essa função limpa os códigos de cor para o Bloco de Notas não ficar cheio de símbolos estranhos (ex: [32m).
+function limparCoresTerminal(texto) {
+    return texto.toString().replace(/\x1B\[[0-9;]*m/g, '');
+}
 
-// Intercepta e salva todos os console.log
-console.log = function (...args) {
-    const dataHora = new Date().toLocaleString('pt-BR');
-    const mensagem = util.format(...args);
-    
-    // Tenta escrever. Se falhar, o streamDeLog.on('error') vai capturar
+// 1. Intercepta a saída principal do Node (Captura WPPConnect, Axios, Express, etc)
+const originalStdoutWrite = process.stdout.write.bind(process.stdout);
+process.stdout.write = function(chunk, encoding, callback) {
     if (streamDeLog.writable) {
-        streamDeLog.write(`[${dataHora}] INFO: ${mensagem}\n`);
+        streamDeLog.write(limparCoresTerminal(chunk));
     }
-    logNativo.apply(console, args);
+    // Continua mandando para a tela do CMD normalmente
+    return originalStdoutWrite(chunk, encoding, callback);
 };
 
-// Intercepta os erros também
+// 2. Intercepta a saída de erros críticos
+const originalStderrWrite = process.stderr.write.bind(process.stderr);
+process.stderr.write = function(chunk, encoding, callback) {
+    if (streamDeLog.writable) {
+        streamDeLog.write(limparCoresTerminal(chunk));
+    }
+    return originalStderrWrite(chunk, encoding, callback);
+};
+
+// 3. Adiciona Data e Hora aos seus próprios console.log do código
+const logNativo = console.log;
+console.log = function (...args) {
+    const dataHora = new Date().toLocaleString('pt-BR');
+    logNativo(`[${dataHora}]`, ...args);
+};
+
+const errorNativo = console.error;
 console.error = function (...args) {
     const dataHora = new Date().toLocaleString('pt-BR');
-    const mensagem = util.format(...args);
-    
-    if (streamDeLog.writable) {
-        streamDeLog.write(`[${dataHora}] ERRO: ${mensagem}\n`);
-    }
-    errorNativo.apply(console, args);
+    errorNativo(`[${dataHora}] ERRO:`, ...args);
 };
 
 // CONFIGURAÇÃO
