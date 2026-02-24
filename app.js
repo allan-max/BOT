@@ -5,6 +5,51 @@ const { v4: uuidv4 } = require('uuid');
 const axios = require('axios');
 const http = require('http');
 const https = require('https');
+const fs = require('fs');
+const util = require('util');
+const path = require('path');
+
+// ======================================================================
+// SISTEMA DE LOGS EM ARQUIVO TXT (ÚNICO ARQUIVO, PASTA PERSONALIZADA)
+// ======================================================================
+
+// 1. Defina aqui a pasta onde o log será salvo. 
+const PASTA_DO_LOG = '\\\\SERVIDOR2\\Publico\\ALLAN\\Logs'; 
+
+// DICA: Se precisar salvar em um servidor da rede, você pode usar o caminho UNC:
+// const PASTA_DO_LOG = '\\\\SERVIDOR2\\Logs\\BotWhatsApp';
+
+// 2. Cria a pasta automaticamente se ela não existir
+if (!fs.existsSync(PASTA_DO_LOG)) {
+    fs.mkdirSync(PASTA_DO_LOG, { recursive: true });
+}
+
+// 3. Define o nome do arquivo final
+const arquivoLog = path.join(PASTA_DO_LOG, 'log_zapzap.txt');
+
+// 4. Prepara o arquivo para receber os dados sempre no final (append)
+const streamDeLog = fs.createWriteStream(arquivoLog, { flags: 'a' });
+
+const logNativo = console.log;
+const errorNativo = console.error;
+
+// Intercepta e salva todos os console.log
+console.log = function (...args) {
+    const dataHora = new Date().toLocaleString('pt-BR');
+    const mensagem = util.format(...args);
+    
+    streamDeLog.write(`[${dataHora}] INFO: ${mensagem}\n`);
+    logNativo.apply(console, args);
+};
+
+// Intercepta e salva todos os console.error
+console.error = function (...args) {
+    const dataHora = new Date().toLocaleString('pt-BR');
+    const mensagem = util.format(...args);
+    
+    streamDeLog.write(`[${dataHora}] ERRO: ${mensagem}\n`);
+    errorNativo.apply(console, args);
+};
 
 // CONFIGURAÇÃO
 // ======================================================================
