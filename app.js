@@ -414,7 +414,7 @@ client.onMessage(async (message) => {
             // A. LOGIN
             if (comando === 'cadaallan') {
                 usuariosAutorizados.add(usuario);
-                await client.reply(usuario, '✅ Ativado. Modo administrador liberado.', msgId);
+                await client.reply(usuario, '✅ Ativado.', msgId);
                 return;
             }
 
