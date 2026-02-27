@@ -324,11 +324,33 @@ wppconnect.create({
 async function start(client) {
     console.log('🤖 BOT ONLINE - MODO DEBUG TOTAL (SEM FILTROS)');
 
-    // Substitua o começo do client.onMessage por isso:
+    // ======================================================================
+    // 🔥 ESCUDO DEFINITIVO ANTI-[object Object]
+    // ======================================================================
+    // Essa função extrai apenas o texto do ID, não importa a bagunça que a biblioteca envie.
+    const extrairSeguro = (obj) => {
+        if (!obj) return null;
+        if (typeof obj === 'string') return obj;
+        return obj._serialized || obj.id || String(obj);
+    };
 
-client.onMessage(async (message) => {
-    if (message.type !== 'chat') return;
+    // Blinda a função de Responder (Reply)
+    const originalReply = client.reply.bind(client);
+    client.reply = async function(to, content, quotedMsg) {
+        return originalReply(extrairSeguro(to), content, extrairSeguro(quotedMsg));
+    };
 
+    // Blinda a função de Reagir com Emoji
+    const originalReact = client.sendReactionToMessage.bind(client);
+    client.sendReactionToMessage = async function(messageId, reaction) {
+        return originalReact(extrairSeguro(messageId), reaction);
+    };
+    // ======================================================================
+
+    client.onMessage(async (message) => {
+        if (message.type !== 'chat') return;
+        
+        // ... (o resto do seu código onMessage continua aqui para baixo normalmente)
     // ======================================================================
     // 🔥 CORREÇÃO: EXTRAÇÃO SEGURA DE IDs (Evita o erro de [object Object])
     // ======================================================================
