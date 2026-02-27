@@ -311,22 +311,23 @@ app.listen(PORTA_SERVIDOR, () => console.log(`🚀 Webhook na porta ${PORTA_SERV
 // ======================================================================
 wppconnect.create({
     session: 'bot-servidor',
+    autoClose: 0, 
     headless: 'new',
     logQR: true,
-    disableWelcome: true,
-    autoClose: 0, // 🔥 Adicione isso para desativar o fechamento automático de 60s
-    waitForLogin: 120000, // Dá 2 minutos de fôlego para o Windows Server carregar tudo
+    // 🔥 FORCE UMA VERSÃO MAIS RECENTE DO WHATSAPP AQUI
+    whatsappVersion: '2.3000.1018921608', 
     browserArgs: [
-        '--no-sandbox', 
+        '--no-sandbox',
         '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage', // Ajuda em servidores com pouca RAM
-        '--disable-gpu'            // Melhora a performance em ambientes sem placa de vídeo (servidores)
+        '--disable-extensions',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--disable-gpu',
+        '--no-first-run',
+        '--no-zygote',
+        '--single-process', // 🔥 Isso ajuda muito no Windows Server 2012
     ]
-}).then((client) => {
-    clienteWpp = client;
-    horaInicializacao = Date.now();
-    start(client);
-}).catch(err => console.error('Erro WPP:', err));
+})
 
 async function start(client) {
     console.log('🤖 BOT ONLINE - MODO DEBUG TOTAL (SEM FILTROS)');
