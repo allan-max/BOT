@@ -366,45 +366,48 @@ async function start(client) {
 
     client.onMessage(async (message) => {
         if (message.type !== 'chat') return;
+
+        // ======================================================================
+        // 🔥 EXTRAÇÃO SEGURA DEFINITIVA (Lê a mensagem corretamente)
+        // ======================================================================
+        const extrairIdString = (obj) => {
+            if (!obj) return null;
+            if (typeof obj === 'string') return obj === '[object Object]' ? null : obj;
+            if (typeof obj === 'object') {
+                if (obj._serialized && typeof obj._serialized === 'string') return obj._serialized;
+                if (obj.id) return extrairIdString(obj.id); // <--- O SEGREDO AQUI (Recursivo)
+            }
+            const str = String(obj);
+            return str === '[object Object]' ? null : str;
+        };
+
+        const stringChatId = extrairIdString(message.chatId);
+        const stringFrom = extrairIdString(message.from);
+        const stringAuthor = extrairIdString(message.author);
+
+        // Verifica se é grupo olhando para as variáveis seguras
+        const isGroup = message.isGroupMsg || 
+                        (stringChatId && stringChatId.includes('@g.us')) || 
+                        (stringFrom && stringFrom.includes('@g.us'));
         
-        // ... (o resto do seu código onMessage continua aqui para baixo normalmente)
-    // ======================================================================
-    // 🔥 CORREÇÃO: EXTRAÇÃO SEGURA DE IDs (Evita o erro de [object Object])
-    // ======================================================================
-    const extrairIdString = (obj) => {
-        if (!obj) return null;
-        if (typeof obj === 'string') return obj;
-        return obj._serialized || obj.id || String(obj);
-    };
+        // Se for grupo, pega o ID do grupo (sempre em texto). Se não, null.
+        const grupo = isGroup ? (stringFrom && stringFrom.includes('@g.us') ? stringFrom : stringChatId) : null;
+        
+        // O autor da mensagem (quem enviou)
+        const usuario = stringAuthor || stringFrom;
+        
+        const msgId = extrairIdString(message.id);
 
-    const stringChatId = extrairIdString(message.chatId);
-    const stringFrom = extrairIdString(message.from);
-    const stringAuthor = extrairIdString(message.author);
+        const texto = (message.body || '').trim();
 
-    // Verifica se é grupo olhando para as variáveis seguras
-    const isGroup = message.isGroupMsg || 
-                    (stringChatId && stringChatId.includes('@g.us')) || 
-                    (stringFrom && stringFrom.includes('@g.us'));
-    
-    // Se for grupo, pega o ID do grupo (sempre em texto). Se não, null.
-    const grupo = isGroup ? (stringFrom && stringFrom.includes('@g.us') ? stringFrom : stringChatId) : null;
-    
-    // O autor da mensagem (quem enviou)
-    const usuario = stringAuthor || stringFrom;
-    
-    const msgId = extrairIdString(message.id);
-
-    const texto = (message.body || '').trim();
-
-    // LOG GERAL - VAMOS VER O QUE CHEGA
-    console.log('===========================================================');
-    console.log(`📩 MENSAGEM RECEBIDA!`);
-    console.log(`   Tipo: ${message.type}`);
-    console.log(`   De: ${usuario}`);
-    console.log(`   Grupo: ${isGroup ? 'SIM (' + grupo + ')' : 'NÃO'}`);
-    console.log(`   Texto: "${texto}"`);
-    console.log('===========================================================');
-
+        // LOG GERAL - VAMOS VER O QUE CHEGA
+        console.log('===========================================================');
+        console.log(`📩 MENSAGEM RECEBIDA!`);
+        console.log(`   Tipo: ${message.type}`);
+        console.log(`   De: ${usuario}`);
+        console.log(`   Grupo: ${isGroup ? 'SIM (' + grupo + ')' : 'NÃO'}`);
+        console.log(`   Texto: "${texto}"`);
+        console.log('===========================================================');
         // ============================================================
         // 1. BLOCO DE GRUPOS
         // ============================================================
