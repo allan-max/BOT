@@ -311,21 +311,20 @@ app.listen(PORTA_SERVIDOR, () => console.log(`🚀 Webhook na porta ${PORTA_SERV
 // ======================================================================
 wppconnect.create({
     session: 'bot-servidor',
-    autoClose: 0, 
+    executablePath: 'C:\\chrome109\\chrome.exe',
     headless: 'new',
-    logQR: true,
-    // 🔥 FORCE UMA VERSÃO MAIS RECENTE DO WHATSAPP AQUI
-    whatsappVersion: '2.3000.1018921608', 
+    autoClose: 0,
     browserArgs: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
-        '--disable-extensions',
         '--disable-dev-shm-usage',
         '--disable-accelerated-2d-canvas',
         '--disable-gpu',
         '--no-first-run',
         '--no-zygote',
-        '--single-process', // 🔥 Isso ajuda muito no Windows Server 2012
+        '--single-process', // 🔥 Essencial para Windows Server antigo
+        '--disable-software-rasterizer',
+        '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
     ]
 })
 
