@@ -353,7 +353,6 @@ client.onMessage(async (message) => {
     // O autor da mensagem (quem enviou)
     const usuario = stringAuthor || stringFrom;
     
-    // ID da mensagem
     const msgId = extrairIdString(message.id);
 
     const texto = (message.body || '').trim();
@@ -366,7 +365,7 @@ client.onMessage(async (message) => {
     console.log(`   Grupo: ${isGroup ? 'SIM (' + grupo + ')' : 'NÃO'}`);
     console.log(`   Texto: "${texto}"`);
     console.log('===========================================================');
-    
+
         // ============================================================
         // 1. BLOCO DE GRUPOS
         // ============================================================
