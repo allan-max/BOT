@@ -329,31 +329,44 @@ async function start(client) {
 client.onMessage(async (message) => {
     if (message.type !== 'chat') return;
 
-    const texto = (message.body || '').trim();
+    // ======================================================================
+    // 🔥 CORREÇÃO: EXTRAÇÃO SEGURA DE IDs (Evita o erro de [object Object])
+    // ======================================================================
+    const extrairIdString = (obj) => {
+        if (!obj) return null;
+        if (typeof obj === 'string') return obj;
+        return obj._serialized || obj.id || String(obj);
+    };
+
+    const stringChatId = extrairIdString(message.chatId);
+    const stringFrom = extrairIdString(message.from);
+    const stringAuthor = extrairIdString(message.author);
+
+    // Verifica se é grupo olhando para as variáveis seguras
+    const isGroup = message.isGroupMsg || 
+                    (stringChatId && stringChatId.includes('@g.us')) || 
+                    (stringFrom && stringFrom.includes('@g.us'));
     
-    // CORREÇÃO CRÍTICA AQUI:
-    // Se o chatId terminar em '@g.us', É GRUPO, mesmo que a biblioteca diga que não.
-    const isGroup = message.isGroupMsg || (message.chatId && message.chatId.includes('@g.us'));
-    
-    // Se for grupo, pega o ID do chat. Se não, null.
-    const grupo = isGroup ? message.chatId : null;
+    // Se for grupo, pega o ID do grupo (sempre em texto). Se não, null.
+    const grupo = isGroup ? (stringFrom && stringFrom.includes('@g.us') ? stringFrom : stringChatId) : null;
     
     // O autor da mensagem (quem enviou)
-    const usuario = message.author || message.from;
+    const usuario = stringAuthor || stringFrom;
     
-    const msgId = message.id;
+    // ID da mensagem
+    const msgId = extrairIdString(message.id);
 
-    // ... (o resto do código continua igual: filtros de tempo, logs, etc) ...
-        
-        // LOG GERAL - VAMOS VER O QUE CHEGA
-        console.log('===========================================================');
-        console.log(`📩 MENSAGEM RECEBIDA!`);
-        console.log(`   Tipo: ${message.type}`);
-        console.log(`   De: ${usuario}`);
-        console.log(`   Grupo: ${isGroup ? 'SIM (' + grupo + ')' : 'NÃO'}`);
-        console.log(`   Texto: "${texto}"`);
-        console.log('===========================================================');
+    const texto = (message.body || '').trim();
 
+    // LOG GERAL - VAMOS VER O QUE CHEGA
+    console.log('===========================================================');
+    console.log(`📩 MENSAGEM RECEBIDA!`);
+    console.log(`   Tipo: ${message.type}`);
+    console.log(`   De: ${usuario}`);
+    console.log(`   Grupo: ${isGroup ? 'SIM (' + grupo + ')' : 'NÃO'}`);
+    console.log(`   Texto: "${texto}"`);
+    console.log('===========================================================');
+    
         // ============================================================
         // 1. BLOCO DE GRUPOS
         // ============================================================
