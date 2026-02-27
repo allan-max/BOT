@@ -311,7 +311,8 @@ app.listen(PORTA_SERVIDOR, () => console.log(`🚀 Webhook na porta ${PORTA_SERV
 // ======================================================================
 wppconnect.create({
     session: 'bot-servidor',
-    executablePath: 'C:\\chrome109\\chrome.exe',
+    // 🔥 CAMINHO PARA O CHROME 109 (Ajuste conforme sua pasta)
+    executablePath: 'C:\\Chrome109\\chrome.exe', 
     headless: 'new',
     autoClose: 0,
     browserArgs: [
@@ -322,11 +323,15 @@ wppconnect.create({
         '--disable-gpu',
         '--no-first-run',
         '--no-zygote',
-        '--single-process', // 🔥 Essencial para Windows Server antigo
+        '--single-process', // 🔥 Fundamental no Win Server 2012
         '--disable-software-rasterizer',
-        '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+        '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
     ]
-})
+}).then((client) => {
+    clienteWpp = client;
+    horaInicializacao = Date.now();
+    start(client);
+}).catch(err => console.error('❌ Erro crítico:', err));
 
 async function start(client) {
     console.log('🤖 BOT ONLINE - MODO DEBUG TOTAL (SEM FILTROS)');
