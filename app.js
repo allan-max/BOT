@@ -325,13 +325,30 @@ async function start(client) {
     console.log('🤖 BOT ONLINE - MODO DEBUG TOTAL (SEM FILTROS)');
 
     // ======================================================================
-    // 🔥 ESCUDO DEFINITIVO ANTI-[object Object]
+    // 🔥 ESCUDO DEFINITIVO V2 (RECURSIVO) ANTI-[object Object]
     // ======================================================================
-    // Essa função extrai apenas o texto do ID, não importa a bagunça que a biblioteca envie.
     const extrairSeguro = (obj) => {
+        // 1. Se for nulo ou vazio, ignora
         if (!obj) return null;
-        if (typeof obj === 'string') return obj;
-        return obj._serialized || obj.id || String(obj);
+        
+        // 2. Se já for o texto certinho, retorna (e ignora se for a string literal "[object Object]")
+        if (typeof obj === 'string') {
+            return obj === '[object Object]' ? null : obj;
+        }
+        
+        // 3. Se for um objeto, vamos cavar até achar a string
+        if (typeof obj === 'object') {
+            if (obj._serialized && typeof obj._serialized === 'string') {
+                return obj._serialized;
+            }
+            
+            // Aqui está o pulo do gato: se o .id for OUTRO objeto, a função chama ela mesma de novo!
+            if (obj.id) {
+                return extrairSeguro(obj.id); 
+            }
+        }
+        
+        return String(obj);
     };
 
     // Blinda a função de Responder (Reply)
