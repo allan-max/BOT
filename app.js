@@ -314,7 +314,14 @@ wppconnect.create({
     headless: 'new',
     logQR: true,
     disableWelcome: true,
-    browserArgs: ['--no-sandbox', '--disable-setuid-sandbox']
+    autoClose: 0, // 🔥 Adicione isso para desativar o fechamento automático de 60s
+    waitForLogin: 120000, // Dá 2 minutos de fôlego para o Windows Server carregar tudo
+    browserArgs: [
+        '--no-sandbox', 
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage', // Ajuda em servidores com pouca RAM
+        '--disable-gpu'            // Melhora a performance em ambientes sem placa de vídeo (servidores)
+    ]
 }).then((client) => {
     clienteWpp = client;
     horaInicializacao = Date.now();
