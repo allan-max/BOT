@@ -63,14 +63,15 @@ console.error = function (...args) {
 
 // CONFIGURAÇÃO
 const PORTA_SERVIDOR = 5000;
-const API_GATEWAY = 'http://localhost:5000/api/gateway/tarefa'; 
-const MEU_IP_CALLBACK = 'http://localhost'; 
+const API_GATEWAY = 'http://192.168.1.3:5000/api/gateway/tarefa'; 
+const MEU_IP_CALLBACK = 'http://192.168.1.3'; 
 
 const NOME_GRUPO_PERMITIDO = 'CADASTRO VENTURA';
 const NOME_GRUPO_DATASHEET = 'DATASHEET VENTURA';
 
 // MEMÓRIA
 let tarefasEmAndamento = new Map(); 
+let lotesEmAndamento = new Map();
 let clienteWpp = null;
 let horaInicializacao = Date.now();
 let usuariosAutorizados = new Set();
@@ -80,7 +81,6 @@ class ExtratorDatasheet {
     constructor() {
         this.sitesSuportados = {
             'MERCADO_LIVRE': { padroes: [/mercadolivre\.com\.br/, /mercadolivre\.com/, /ml\.com/] },
-            //'MAGAZINE_LUIZA': { padroes: [/magazineluiza\.com\.br/, /magazinevoce\.com\.br/] },
             'AMAZON': { padroes: [/amazon\.com\.br/, /amzn\.to/] },
             'tambasa': { padroes: [/tambasa\.com\.br/, /loja\.tambasa\.com/, /tambasa\.com/] },
             'FUJIOKA': { padroes: [/fujioka\.com\.br/, /fujiokadistribuidor\.com\.br/] },
@@ -88,27 +88,31 @@ class ExtratorDatasheet {
             'agis': { padroes: [/vendas.agis\.com\.br/, /agis\.com\.br/] },
             'vonder': { padroes: [/vonder\.com\.br/] },
             'MAZER': { padroes: [/mazer\.com\.br/] },
+            'ACIMAQ': { padroes: [/acimaq\.com\.br/] },
+            'dufrio': { padroes: [/dufrio\.com\.br/] },
+            'climario': { padroes: [/climario\.com\.br/] },
+            'martinsfontes': { padroes: [/martinsfontespaulista\.com\.br/] },
             'SAMSUNG': { padroes: [/samsung\.com/] },
             'compregolden': { padroes: [/compregolden\.com\.br/,/compregolden\.com/ ] },
             'DUTRA': { padroes: [/dutramaquinas\.com\.br/] },
             'ROUTE66': { padroes: [/route66\.com\.br/] },
             'KABUM' : { padroes: [/kabum\.com\.br/]},
             'ATACADOSP': { padroes: [/atacadosaopaulo\.com\.br/,/ atacadosaopaulo\.com/ ]},
+            'eletrolux': { padroes: [/loja\.electrolux\.com\.br/,/ electrolux\.com\.br/ ]},
+            'consul': { padroes: [/consul\.com\.br/] },
+            'travessa': { padroes: [/travessa\.com\.br/] },
             'MARTINS': { padroes: [/martinsatacado\.com\.br/] },
             'LOJADOMECANICO': { padroes: [/lojadomecanico\.com\.br/] },
-            //'MAGALU': { padroes: [/magazineluiza\.com\.br/, /magalu\.com/] },
             'MAGALUEMPRESAS': { padroes: [/magaluempresas\.com\.br/] },
-            'intelbras': { padroes: [/intelbras\.com/] },
-            //'BHPHOTOVIDEO': { padroes: [/bhphotovideo\.com/] },
-            //'MADEIRA_MADEIRA': { padroes: [/madeiramadeira\.com\.br/] },
             'LEROY_MERLIN': { padroes: [/leroymerlin\.com\.br/] },
-            //'dell': { padroes: [/dell\.com\.br/, /dell\.com/] },
+            'lenovo': { padroes: [/lenovo\.com/] },
+            'xbz': { padroes: [/xbzbrindes\.com\.br/] },
             'kalunga': { padroes: [/kalunga\.com\.br/] },
             'tsshara': { padroes: [/tsshara\.com\.br/] },
-            //'elgin': { padroes: [/loja\.elgin\.com\.br/, /elgin\.com\.br/] },
-            //'casasbahia': { padroes: [/casasbahia\.com\.br/] },
+            'brastemp': { padroes: [/brastemp\.com\.br/] },
+            'midea': { padroes: [/midea\.com\.br/] },
+            'elgin': { padroes: [/loja\.elgin\.com\.br/, /elgin\.com\.br/] },
             'pauta': { padroes: [/pauta\.com\.br/] },
-            //'ingram': { padroes: [/ingrammicro\.com\.br/] },
             'frigelar': { padroes: [/frigelar\.com\.br/] },
             'fastshop': { padroes: [/fastshop\.com\.br/, /site\.fastshop\.com/] },
             'ordeco': { padroes: [/oderco\.com\.br/] },
@@ -116,7 +120,17 @@ class ExtratorDatasheet {
             'kalunga': { padroes: [/kalunga\.com\.br/] },
             'dimensional': { padroes: [/dimensional\.com\.br/] },
             'hayamax': { padroes: [/hayamax\.com\.br/] },
-            'WEG': { padroes: [/weg\.net/] }
+            'cetro': { padroes: [/cetro\.com\.br/] },
+            'WEG': { padroes: [/weg\.net/] },
+            'EPSON': { padroes: [/epson\.com\.br/] }
+            //'intelbras': { padroes: [/intelbras\.com/] },
+            //'casasbahia': { padroes: [/casasbahia\.com\.br/] },
+            //'ingram': { padroes: [/ingrammicro\.com\.br/] },
+            //'dell': { padroes: [/dell\.com\.br/, /dell\.com/] },
+            //'BHPHOTOVIDEO': { padroes: [/bhphotovideo\.com/] },
+            //'MADEIRA_MADEIRA': { padroes: [/madeiramadeira\.com\.br/] },
+            //'MAGALU': { padroes: [/magazineluiza\.com\.br/, /magalu\.com/] },
+            //'MAGAZINE_LUIZA': { padroes: [/magazineluiza\.com\.br/, /magazinevoce\.com\.br/] },
         };
     }
     analisarMensagem(texto) {
@@ -246,7 +260,36 @@ async function enviarParaGateway(dadosOriginais) {
         return { sucesso: false, erro: error.message };
     }
 }
+// 🔥 NOVA FUNÇÃO: Gere os retornos (Síncronos e Assíncronos) para não espamar o WhatsApp
+async function processarRetornoItem(idTarefa, codigoGerado) {
+    const tarefa = tarefasEmAndamento.get(idTarefa);
+    if (!tarefa) return; 
 
+    const { msgId, tipo, isGroup, grupo, usuario } = tarefa;
+    const destino = isGroup ? grupo : usuario;
+    
+    // Se for PRODUTO, verifica se faz parte de um lote
+    if (tipo === 'produto') {
+        const lote = lotesEmAndamento.get(msgId);
+        if (lote) {
+            lote.respostas.push(String(codigoGerado));
+            
+            // Checa se o lote completou (recebeu a resposta de TODOS os produtos daquela mensagem)
+            if (lote.respostas.length === lote.totalEsperado) {
+                const msgFinal = lote.respostas.join('\n'); // Junta todos os códigos
+                await clienteWpp.reply(destino, msgFinal, msgId);
+                console.log(`✅ [LOTE CONCLUÍDO] Respondido ${lote.respostas.length} códigos numa única mensagem.`);
+                lotesEmAndamento.delete(msgId);
+            }
+            tarefasEmAndamento.delete(idTarefa);
+            return; // Encerra aqui, pois o lote trata do envio
+        }
+    }
+
+    // Se não for produto (Cliente/Datasheet) ou algo der erro no lote, responde na hora
+    await clienteWpp.reply(destino, String(codigoGerado), msgId);
+    tarefasEmAndamento.delete(idTarefa);
+}
 
 // WEBHOOK 
 const app = express();
@@ -261,15 +304,9 @@ app.post('/api/datasheet/webhook', async (req, res) => {
         if (idInterno) {
             const tarefa = tarefasEmAndamento.get(idInterno);
             if (tarefa && clienteWpp) {
-                const { msgId, usuario, grupo, tipo } = tarefa;
-                const destino = grupo || usuario;
-                
-                let msgResposta = "";
+                let msgResposta = "feito";
 
-                if (tipo === 'datasheet') {
-                    msgResposta = "feito";
-                } else {
-                    // --- CORREÇÃO AQUI TAMBÉM: ADICIONADOS OS CAMPOS FALTANTES ---
+                if (tarefa.tipo !== 'datasheet') {
                     const codigo = body.codigoProduto || 
                                    body.codigoCliente || 
                                    body.codigoFornecedor || 
@@ -285,10 +322,8 @@ app.post('/api/datasheet/webhook', async (req, res) => {
                     }
                 }
 
-                await clienteWpp.reply(destino, msgResposta, msgId);
-                console.log(`✅ Respondido via Webhook: "${msgResposta}"`);
-                
-                tarefasEmAndamento.delete(idInterno);
+                // 🔥 Passa a bola para o sistema de lotes organizar
+                await processarRetornoItem(idInterno, msgResposta);
             }
         }
         res.json({ status: 'ok' });
@@ -560,8 +595,8 @@ async function processarEntidade(texto, u, g, isG, mId) {
 // INTEGRAÇÃO COM IA (GROQ) - SUBSTITUTO DO EXTRATOR REGEX
 async function extrairProdutosComIA(textoWhatsApp) {
     // ⚠️ COLOQUE AQUI A SUA NOVA CHAVE DE API DO GROQ
-    const API_KEY = ''; 
-    const API_URL = '';
+    const API_KEY = 'api'; 
+    const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
     const systemPrompt = `Você é um extrator de dados de produtos. Sua única função é analisar mensagens de texto bagunçadas e extrair DESCRIÇÃO, NCM e PREÇO de cada produto.
     
@@ -597,7 +632,7 @@ async function extrairProdutosComIA(textoWhatsApp) {
     try {
         console.log('🧠 [IA GROQ] A analisar texto recebido...');
         const resposta = await axios.post(API_URL, {
-            model: "llama-3.1-8b-instant", 
+            model: "openai/gpt-oss-120b", 
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: textoWhatsApp }
@@ -639,11 +674,10 @@ async function extrairProdutosComIA(textoWhatsApp) {
 }
 
 // PROCESSADOR DE PRODUTOS (COM INTELIGÊNCIA ARTIFICIAL - GROQ)
+// PROCESSADOR DE PRODUTOS 
 async function processarProdutos(texto, u, g, isG, mId, ctx) {
-    // 1. Reage apenas uma vez no início para indicar processamento
     await reagir(mId);
 
-    // 2. Extrai todos os produtos da mensagem usando a IA
     const prods = await extrairProdutosComIA(texto);
     
     if (!prods || prods.length === 0) {
@@ -651,52 +685,38 @@ async function processarProdutos(texto, u, g, isG, mId, ctx) {
         return;
     }
 
-    console.log(`🎯 [IA] Encontrou ${prods.length} produtos. A iniciar envio paralelo...`);
+    const produtosValidos = prods.filter(p => p.descricao && p.descricao.length >= 3 && p.ncm && p.preco && p.preco > 0);
 
-    const promessasDeEnvio = [];
-
-    // 3. Prepara todas as requisições
-    for (const p of prods) {
-        // Validação nativa simples: Tem descrição? Tem NCM? O preço é maior que zero?
-        const produtoValido = p.descricao && p.descricao.length >= 3 && p.ncm && p.preco && p.preco > 0;
-        
-        if (produtoValido) {
-            // 🔥 CORREÇÃO: Faltava gerar o ID único aqui!
-            const id = `prod_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`;
-            
-            // Regista a tarefa na memória
-            tarefasEmAndamento.set(id, { usuario: u, grupo: g, msgId: mId, isGroup: isG, tipo: 'produto' });
-
-            const promessa = enviarParaGateway({
-                tipo: 'produto',
-                custom_id: id,
-                descricao: p.descricao,
-                ncm: p.ncm,
-                preco: parseFloat(p.preco)
-            }).then(res => {
-                if (res.sucesso && res.resultadoImediato) {
-                    tarefasEmAndamento.delete(id);
-                    return res.resultadoImediato;
-                }
-                return null;
-            });
-
-            promessasDeEnvio.push(promessa);
-        } else {
-            console.log(`⚠️ Produto reprovado na validação (pode faltar NCM ou preço): ${p.descricao}`);
-        }
+    if (produtosValidos.length === 0) {
+        console.log('⚠️ Produtos reprovados na validação (pode faltar NCM ou preço).');
+        return;
     }
 
-    // 4. Aguarda TODOS os envios serem finalizados em paralelo
-    const resultados = await Promise.all(promessasDeEnvio);
+    console.log(`🎯 [IA] Encontrou ${produtosValidos.length} produtos válidos. Iniciando envios...`);
 
-    // 5. Filtra apenas os códigos válidos que retornaram
-    const codigos = resultados.filter(codigo => codigo !== null);
+    // 🔥 REGISTRA O LOTE PARA ESTA MENSAGEM
+    lotesEmAndamento.set(mId, {
+        totalEsperado: produtosValidos.length,
+        respostas: [] // Array que vai armazenar os códigos à medida que vão chegando
+    });
 
-    // 6. Envia UMA ÚNICA mensagem com todos os códigos
-    if (codigos.length > 0) {
-        const msgResposta = codigos.join('\n'); 
-        await clienteWpp.reply(isG ? g : u, msgResposta, mId);
-        console.log(`✅ [LOTE] Respondido ${codigos.length} códigos numa mensagem.`);
+    // Dispara as requisições para a API em paralelo (sem bloquear o código)
+    for (const p of produtosValidos) {
+        const id = `prod_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`;
+        
+        tarefasEmAndamento.set(id, { usuario: u, grupo: g, msgId: mId, isGroup: isG, tipo: 'produto' });
+
+        enviarParaGateway({
+            tipo: 'produto',
+            custom_id: id,
+            descricao: p.descricao,
+            ncm: p.ncm,
+            preco: parseFloat(p.preco)
+        }).then(res => {
+            // Se a API responder no exato segundo (via response síncrona do HTTP)
+            if (res.sucesso && res.resultadoImediato) {
+                processarRetornoItem(id, res.resultadoImediato);
+            }
+        });
     }
 }
